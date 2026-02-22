@@ -21,13 +21,27 @@ In this lab, you will use **Microsoft Fabric** to ingest data from an Azure SQL 
 
 ## Azure SQL Connection Details
 
-| Field | Value |
-|---|---|
-| Server | `[TO BE PROVIDED]` |
-| Database | `[TO BE PROVIDED]` |
-| Username | `[TO BE PROVIDED]` |
-| Password | `[TO BE PROVIDED]` |
-| Authentication | SQL Authentication |
+**Server:**
+```
+[TO BE PROVIDED]
+```
+
+**Database:**
+```
+[TO BE PROVIDED]
+```
+
+**Username:**
+```
+[TO BE PROVIDED]
+```
+
+**Password:**
+```
+[TO BE PROVIDED]
+```
+
+**Authentication:** SQL Authentication
 
 > **Note:** This is a read-only connection. You will not be able to modify the source database.
 
@@ -37,15 +51,29 @@ In this lab, you will use **Microsoft Fabric** to ingest data from an Azure SQL 
 
 ### 1.1 — Navigate to Microsoft Fabric
 
-Open your browser and go to:
+Open an **InPrivate** (Edge) or **Incognito** (Chrome) browser window and go to:
 
 ```
 https://app.fabric.microsoft.com
 ```
 
-Sign in with your Microsoft account.
+> **Important:** Always use InPrivate / Incognito mode to avoid conflicts with any personal or work Microsoft accounts you may already be logged into.
 
-### 1.2 — Create a New Workspace
+Sign in with the credentials provided to you for this lab.
+
+### 1.2 — Start the Microsoft Fabric Trial
+
+Since this is a fresh tenant, you will need to activate a Fabric trial before proceeding.
+
+1. You should see a prompt to **Start trial** — click it
+2. If you don't see the prompt, click your **profile icon** in the top-right corner → **Start trial**
+3. Review the trial terms and click **Start trial**
+4. Wait for the trial to activate (this may take a moment)
+5. You should see a confirmation that your **Microsoft Fabric trial is active**
+
+> **Note:** The trial gives you full access to all Fabric features for 60 days. This is all we need for today's lab.
+
+### 1.3 — Create a New Workspace
 
 1. In the left navigation pane, click **Workspaces**
 2. Click **+ New workspace**
@@ -60,7 +88,7 @@ InnovAIte-[YourLastName]
 4. Under **Advanced**, ensure **Fabric capacity** or **Trial** is selected as the license mode
 5. Click **Apply**
 
-### 1.3 — Create a Lakehouse
+### 1.4 — Create a Lakehouse
 
 1. Inside your new workspace, click **+ New item**
 2. Select **Lakehouse**
@@ -72,7 +100,7 @@ InnovAItion_Lakehouse
 
 4. Click **Create**
 
-### 1.4 — Quick Tour
+### 1.5 — Quick Tour
 
 Take a moment to explore the Lakehouse interface:
 
@@ -106,13 +134,19 @@ Pipeline_SalesOrders
    - Click **+ New connection**
    - Enter the server, database, username, and password from the connection details table above
    - Click **Test connection** to verify, then click **Next**
-   - Select the table: `dbo.SalesOrders`
+   - Select the table:
+     ```
+     dbo.SalesOrders
+     ```
    - Click **Next** to preview the data — you should see order records with fields like OrderID, CustomerID, ProductName, Vendor, Quantity, UnitCost, UnitPrice, etc.
 
 3. **Destination configuration:**
    - Data store type: **Lakehouse**
    - Select your `InnovAItion_Lakehouse`
-   - Table name: `SalesOrders`
+   - Table name:
+     ```
+     SalesOrders
+     ```
    - Load mode: **Overwrite**
    - Click **Next**
 
@@ -131,48 +165,81 @@ Pipeline_SalesOrders
 
 ---
 
-## Lab 3: Ingest Customers (10-15 min)
+## Lab 3: Ingest Customers with Dataflow Gen2 (10-15 min)
 
-Now you'll bring in the second data source using the same approach.
+For the second data source, you'll use a **Dataflow Gen2** instead of a Data Pipeline. Dataflows give you a Power Query experience where you can transform data during ingestion — rename columns, filter rows, merge tables, and more.
 
-### 3.1 — Create a Second Pipeline
+### 3.1 — Create a Dataflow Gen2
 
 1. Navigate back to your workspace
-2. Click **+ New item** → **Data pipeline**
-3. Name it:
+2. Click **+ New item** → **Dataflow Gen2**
+3. The Power Query editor will open
 
-```
-Pipeline_Customers
-```
+### 3.2 — Connect to Azure SQL
 
-4. Click **Create**
+1. In the Power Query editor, click **Get data** → **Azure SQL Database**
+2. Enter the server and database from the connection details at the top of this guide
+3. Use the **existing connection** credentials from Lab 2 (or re-enter them)
+4. From the table list, select:
+   ```
+   dbo.Customers
+   ```
+5. Click **Next** — you should see a preview of the customer data
 
-### 3.2 — Configure the Copy Activity
+### 3.3 — Transform the Data
 
-1. Add a **Copy data** activity
-2. **Source configuration:**
-   - Data store type: **Azure SQL Database**
-   - Use the **existing connection** you created in Lab 2 (it should appear in the dropdown)
-   - Select the table: `dbo.Customers`
-   - Preview the data — you should see company names, industries, tiers, sales reps, etc.
+This is where Dataflows shine — you can shape the data before it lands in your Lakehouse.
 
-3. **Destination configuration:**
-   - Data store type: **Lakehouse**
-   - Select your `InnovAItion_Lakehouse`
-   - Table name: `Customers`
-   - Load mode: **Overwrite**
+**Rename `Tier` → `Tier`:**
 
-4. **Save + Run**
+1. Right-click the `Tier` column header
+2. Select **Rename**
+3. Type:
+   ```
+   Tier
+   ```
+4. Press **Enter**
 
-### 3.3 — Validate
+**Rename `Contact` → `Contact`:**
+
+1. Right-click the `Contact` column header
+2. Select **Rename**
+3. Type:
+   ```
+   Contact
+   ```
+4. Press **Enter**
+
+> **Why rename?** In real-world scenarios, source systems often have inconsistent or overly technical column names. Dataflows let you clean this up before the data reaches your Lakehouse, so your analysts and reports use business-friendly names from the start.
+
+### 3.4 — Set the Destination
+
+1. In the bottom-right corner of the Power Query editor, click **Add data destination** → **Lakehouse**
+2. Select your `InnovAItion_Lakehouse`
+3. Table name:
+   ```
+   Customers
+   ```
+4. Update method: **Replace**
+5. Click **Next** and review the column mappings
+
+### 3.5 — Publish and Run
+
+1. Click **Publish** in the bottom-right corner
+2. The dataflow will automatically run after publishing
+3. Wait for it to complete (typically 1-2 minutes)
+
+### 3.6 — Validate
 
 1. Navigate back to your Lakehouse
 2. You should now see **two tables** under Tables:
    - `Customers` (~50 rows)
    - `SalesOrders` (~1,000 rows)
-3. Click each table to preview and confirm the data looks correct
+3. Click the `Customers` table and confirm:
+   - The column is now named `Tier` (not `Tier`)
+   - The column is now named `Contact` (not `Contact`)
 
-> **Checkpoint:** If both tables are visible and populated, you're ready to move on. Raise your hand if you need help catching up.
+> **Checkpoint:** If both tables are visible and the renamed columns look correct, you're ready to move on. Raise your hand if you need help catching up.
 
 ---
 
@@ -289,7 +356,7 @@ Arrange all three cards in a row at the top of the report.
 1. Select **Stacked bar chart**
 2. **Y-axis:** `ProductCategory`
 3. **X-axis:** `Total Revenue`
-4. **Legend:** `AccountTier` (from Customers)
+4. **Legend:** `Tier` (from Customers)
 5. This reveals which product categories are popular with your top-tier accounts
 
 ### 5.5 — Monthly Revenue Trend (Line Chart)
@@ -305,7 +372,7 @@ Arrange all three cards in a row at the top of the report.
 1. Select **Table** visual
 2. Add the following fields:
    - `CompanyName` (from Customers)
-   - `AccountTier` (from Customers)
+   - `Tier` (from Customers)
    - `Order Count`
    - `Total Revenue`
    - `Profit Margin`

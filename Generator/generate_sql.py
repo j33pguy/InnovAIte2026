@@ -333,7 +333,7 @@ for c in customers:
     tier_counts[c["AccountTier"]] = tier_counts.get(c["AccountTier"], 0) + 1
 print(f"Customer tiers: {tier_counts}")
 
-with open("/Users/russseaman/Projects/Work/InnoVate Conference/2026/InnovAIte2026/Lab/Data/InnovAItion_Partners_Lab.sql", "w") as f:
+with open("/Users/russseaman/Projects/Work/InnoVate Conference/2026/InnovAIte2026/Generator/InnovAItion_Partners_Lab.sql", "w") as f:
     f.write("\n".join(lines))
 
 print("\nSQL file written successfully!")

@@ -16,7 +16,9 @@ Before you begin, make sure you have:
 
 ## Step 1: Sign In & Change Your Password
 
-1. Open a browser and go to [portal.microsoft.com](https://portal.microsoft.com).
+> **Important:** Open an **InPrivate** (Edge) or **Incognito** (Chrome) browser window before signing in. This prevents conflicts with any personal or work Microsoft accounts you may already be logged into.
+
+1. Open an **InPrivate / Incognito** browser window and go to [portal.microsoft.com](https://portal.microsoft.com).
 2. Enter the **username** from your credentials email and click **Next**.
 3. Enter the **temporary password** and click **Sign in**.
 4. You will be prompted to **update your password**. Fill in the following fields:
