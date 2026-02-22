@@ -45,7 +45,7 @@ VALUES
     ('C016', 'Heartland Ag Supplies', 'Construction', 'Bronze', 'South', 'OK', 'Kevin Park', '2023-05-14', '2025-05-14', 'Greg Mueller', 'gmueller@heartlandagsupp.com', '555-3591'),
     ('C017', 'Bayside City Council', 'Energy', 'Gold', 'Northeast', 'CT', 'James Carter', '2025-02-28', '2027-02-28', 'Sandra Price', 'sprice@baysidecitycoun.com', '555-5889'),
     ('C018', 'Pinnacle Pharma Labs', 'Real Estate', 'Silver', 'South', 'LA', 'James Carter', '2024-03-18', '2026-03-18', 'Yusuf Hassan', 'yhassan@pinnaclepharmal.com', '555-9689'),
-    ('C019', 'Evergreen Community College', 'Technology', 'Gold', 'Northeast', 'NJ', 'Sarah Mitchell', '2023-06-27', '2025-06-27', 'Megan O''Brien', 'mo'brien@evergreencommun.com', '555-6038'),
+    ('C019', 'Evergreen Community College', 'Technology', 'Gold', 'Northeast', 'NJ', 'Sarah Mitchell', '2023-06-27', '2025-06-27', 'Megan O''Brien', 'mobrien@evergreencommun.com', '555-6038'),
     ('C020', 'Titan Auto Parts', 'Manufacturing', 'Gold', 'South', 'TX', 'Marcus Johnson', '2025-08-27', '2027-08-27', 'Derek Lawson', 'dlawson@titanautoparts.com', '555-2133'),
     ('C021', 'Meridian Health Systems', 'Nonprofit', 'Silver', 'Midwest', 'MN', 'Andre Williams', '2025-03-09', '2027-03-09', 'Christine Park', 'cpark@meridianhealths.com', '555-9645'),
     ('C022', 'Coastal Prep Academy', 'Real Estate', 'Silver', 'Midwest', 'IA', 'Elena Vasquez', '2024-11-21', '2026-11-21', 'Nathan Singh', 'nsingh@coastalprepacad.com', '555-7118'),

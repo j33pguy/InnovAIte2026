@@ -87,7 +87,8 @@ for i in range(50):
     fname = first_names[i]
     lname = last_names[i]
     domain = company.lower().replace(" ", "").replace("&", "").replace("'", "")[:15]
-    email = f"{fname[0].lower()}{lname.lower()}@{domain}.com"
+    clean_lname = lname.replace("'", "")
+    email = f"{fname[0].lower()}{clean_lname.lower()}@{domain}.com"
     phone = f"555-{random.randint(1000, 9999)}"
 
     customers.append({
