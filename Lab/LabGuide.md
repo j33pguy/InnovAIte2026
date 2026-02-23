@@ -23,22 +23,22 @@ In this lab, you will use **Microsoft Fabric** to ingest data from an Azure SQL 
 
 **Server:**
 ```
-[TO BE PROVIDED]
+<your-sql-server>.database.windows.net
 ```
 
 **Database:**
 ```
-[TO BE PROVIDED]
+InnovAItionPartnersDB
 ```
 
 **Username:**
 ```
-[TO BE PROVIDED]
+<lab-username>
 ```
 
 **Password:**
 ```
-[TO BE PROVIDED]
+<lab-password>
 ```
 
 **Authentication:** SQL Authentication
